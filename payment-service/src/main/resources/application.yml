@@ -1,0 +1,13 @@
+spring:
+  main.web-application-type: none
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud.stream:
+    bindings.input:
+      destination: payment-approval-topic
+    bindings.output:
+      destination: payment-notification-topic
+      contentType: application/json
