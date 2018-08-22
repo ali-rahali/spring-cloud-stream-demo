@@ -7,8 +7,5 @@ spring:
     password: guest
   cloud.stream:
     bindings.input:
-      destination: payment-approval-topic
-      group: payment-service-consumer
-    bindings.output:
       destination: payment-notification-topic
-      contentType: application/json
+      group: email-service-consumer

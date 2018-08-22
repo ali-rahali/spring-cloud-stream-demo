@@ -2,5 +2,5 @@ rootProject.name = 'spring-cloud-stream-demo'
 include 'subscription-api'
 include 'payment-service'
 include 'email-service'
-include 'subscription-service'
+include 'persistence-service'
 

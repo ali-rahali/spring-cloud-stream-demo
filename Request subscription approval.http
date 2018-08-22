@@ -1,0 +1,4 @@
+POST http://localhost:8181/api/request-approval
+Content-Type: text/plain
+
+MyRequest

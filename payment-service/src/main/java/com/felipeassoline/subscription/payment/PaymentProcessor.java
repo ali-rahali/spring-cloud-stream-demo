@@ -6,33 +6,33 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.stereotype.Component;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 
-@Component
+import java.util.Map;
+
 @EnableBinding({Processor.class})
 public class PaymentProcessor {
-    private final Processor processor;
     private final Logger LOGGER = LoggerFactory.getLogger(PaymentProcessor.class);
 
-    public PaymentProcessor(Processor processor) {
-        this.processor = processor;
-    }
-
+    @SendTo(Processor.OUTPUT)
     @StreamListener(target = Processor.INPUT)
-    public void processPayment(Message<String> paymentApprovalRequest) {
-
+    public Message<Map<String, Object>> processPayment(Message<Map<String, Object>> paymentApprovalRequest) {
+        Map<String, Object> request = paymentApprovalRequest.getPayload();
+        String priority = "normal";
         if (System.currentTimeMillis() % 2 == 0) {
-            String paymentResult = paymentApprovalRequest.getPayload() + ": Payment approved";
-            LOGGER.info(paymentResult);
-            processor.output().send(MessageBuilder.withPayload(paymentResult).build());
+            request.put("status", "approved");
         } else {
-            String paymentResult = paymentApprovalRequest.getPayload() + ": Payment denied";
-            LOGGER.info(paymentResult);
-            processor.output().send(MessageBuilder.withPayload(paymentResult).build());
+            request.put("status", "denied");
+            priority = "urgent";
         }
 
-    }
+        LOGGER.info(request.toString());
 
+        return MessageBuilder.withPayload(request)
+                .setHeader("notificationPriority", priority)
+                .build();
+    }
 
 }
