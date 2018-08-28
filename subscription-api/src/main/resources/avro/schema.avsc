@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "name": "SubscriptionRequest",
+    "namespace": "com.felipeassoline.subscription.payment.api",
+    "fields": [
+        {"name": "cardNumber", "type": ["string", "null"]},
+        {"name": "secret", "type": ["string", "null"]},
+        {"name": "status", "type": ["string", "null"]}
+    ]
+}

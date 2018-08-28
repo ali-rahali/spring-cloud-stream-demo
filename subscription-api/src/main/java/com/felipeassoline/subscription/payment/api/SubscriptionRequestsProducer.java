@@ -4,8 +4,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.integration.support.MessageBuilder;
 
-import java.util.Map;
-
 @EnableBinding({Source.class})
 public class SubscriptionRequestsProducer {
     private final Source source;
@@ -14,7 +12,7 @@ public class SubscriptionRequestsProducer {
         this.source = source;
     }
 
-    public void requestApproval(Map<String, Object> subscriptionRequest) {
+    public void requestApproval(SubscriptionRequest subscriptionRequest) {
         source.output().send(MessageBuilder.withPayload(subscriptionRequest).build());
     }
 }

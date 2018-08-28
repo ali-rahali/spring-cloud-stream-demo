@@ -1,4 +1,10 @@
 POST http://localhost:8181/api/request-approval
-Content-Type: text/plain
+Content-Type: application/json
 
-MyRequest
+{
+  "cardNumber": "4532 2345 2234 2234",
+  "secret": "432",
+  "status": null
+}
+
+###

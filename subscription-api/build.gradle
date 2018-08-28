@@ -39,6 +39,8 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-stream-schema"
     compile "org.springframework.cloud:spring-cloud-stream-binder-rabbit"
 
+    compile("org.apache.avro:avro:1.8.2")
+
     testCompile "junit:junit:4.12"
 }
 

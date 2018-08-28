@@ -10,4 +10,12 @@ spring:
   cloud.stream:
     bindings.output:
       destination: payment-approval-topic
-      contentType: application/json
+      contentType: application/*+avro
+    schema:
+      avro:
+        schema-locations: classpath:avro/schema.avsc
+    schema-registry-client:
+      endpoint: http://localhost:8080
+
+management:
+  health.binders.enabled: true
